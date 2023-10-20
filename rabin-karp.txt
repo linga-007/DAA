@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    unordered_map<char,int> mp;
+    string pattern = "aca";
+    string initial_text = "abcdefghijklmnopqrstuvwxyz";
+    string text = "abbcaaca";
+    int sum = 0;
+    for(auto x : initial_text){
+        int temp = x%97 +1;
+        mp[x] = temp;
+    }
+    for(auto x : pattern){
+        sum+=mp[x];
+    }
+    int m = text.size();
+    int n = pattern.size();
+    for(int i = 0 ; i <= m-n ; i++){
+        int temp_sum = 0 ;
+        string temp_string = "";
+        for(int j = i ; j < i+n ; j++){
+            temp_sum += mp[text[j]];
+            temp_string += text[j];
+        }
+        if(temp_sum == sum){
+            for(int t = 0 ; t < n ; t++){
+                if(temp_string[t]!=pattern[t]){
+                    break;
+                }
+                if(t==n-1){
+                    cout<<"Found at "<<i;
+                }
+            }
+        }
+    }
+    return 0;
+}
+
